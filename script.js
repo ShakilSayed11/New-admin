@@ -1,4 +1,5 @@
 console.log('Script is running');
+console.log('External script loaded');
 
 document.getElementById('downloadForm').addEventListener('submit', async (e) => {
     e.preventDefault();
