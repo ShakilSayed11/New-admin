@@ -1,5 +1,4 @@
 console.log('Script is running');
-console.log('External script loaded');
 
 document.getElementById('downloadForm').addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -16,20 +15,29 @@ document.getElementById('downloadForm').addEventListener('submit', async (e) => 
     try {
         const response = await fetch(`/api/getData?startDate=${startDate}&endDate=${endDate}&agentName=${agentName}&workingDepartment=${workingDepartment}&workingRegion=${workingRegion}`);
         console.log('Response status:', response.status);
-        const data = await response.json();
-        console.log('Received data:', data);
+        
+        const responseText = await response.text();
+        console.log('Response text:', responseText);
 
-        if (data.error) {
-            console.error('Error from server:', data.error);
-            alert(`Error: ${data.error}`);
-            return;
+        try {
+            const data = JSON.parse(responseText);
+            console.log('Received data:', data);
+
+            if (data.error) {
+                console.error('Error from server:', data.error);
+                alert(`Error: ${data.error}`);
+                return;
+            }
+
+            const workbook = XLSX.utils.book_new();
+            const worksheet = XLSX.utils.json_to_sheet(data);
+            XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+            XLSX.writeFile(workbook, 'google_sheets_data.xlsx');
+            console.log('File created successfully');
+        } catch (jsonError) {
+            console.error('Error parsing JSON:', jsonError);
+            alert('The server returned an invalid response. Please check the console for details.');
         }
-
-        const workbook = XLSX.utils.book_new();
-        const worksheet = XLSX.utils.json_to_sheet(data);
-        XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
-        XLSX.writeFile(workbook, 'google_sheets_data.xlsx');
-        console.log('File created successfully');
     } catch (error) {
         console.error('Error:', error);
         alert('An error occurred while fetching the data.');
