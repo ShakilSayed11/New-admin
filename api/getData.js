@@ -5,11 +5,24 @@ module.exports = async (req, res) => {
     const apiKey = process.env.GOOGLE_SHEETS_API_KEY;
     const sheetId = process.env.GOOGLE_SHEET_ID;
 
+    console.log('API Key:', apiKey ? 'Set' : 'Not set');
+    console.log('Sheet ID:', sheetId ? 'Set' : 'Not set');
+
     try {
-        const response = await fetch(
-            `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Sheet1!A:K?key=${apiKey}`
-        );
+        const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Sheet1!A:K?key=${apiKey}`;
+        console.log('Fetching URL:', url);
+
+        const response = await fetch(url);
+        console.log('Google Sheets API response status:', response.status);
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('Google Sheets API error:', errorText);
+            return res.status(response.status).json({ error: 'Failed to fetch data from Google Sheets' });
+        }
+
         const data = await response.json();
+        console.log('Data received:', data ? 'Yes' : 'No');
 
         if (!data.values || data.values.length === 0) {
             return res.status(404).json({ error: 'No data found.' });
