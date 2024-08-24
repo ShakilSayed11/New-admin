@@ -1,21 +1,15 @@
 async function fetchData() {
-    const fromDate = document.getElementById('fromDate').value;
-    const toDate = document.getElementById('toDate').value;
-    const agentName = document.getElementById('agentName').value;
-    const department = document.getElementById('department').value;
-    const region = document.getElementById('region').value;
-
     const response = await fetch('/api/get-data', {
-        method: 'POST',
+        method: 'POST', // Ensure method matches the one expected by the API
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            fromDate,
-            toDate,
-            agentName,
-            department,
-            region
+            fromDate: '2024-08-01',
+            toDate: '2024-08-31',
+            agentName: 'John Doe',
+            department: 'Sales',
+            region: 'North'
         }),
     });
 
@@ -29,6 +23,6 @@ async function fetchData() {
         a.click();
         a.remove();
     } else {
-        alert('Failed to download data');
+        console.error('Error fetching data:', response.statusText);
     }
 }
