@@ -1,0 +1,11 @@
+{
+    "version": 2,
+    "builds": [
+        { "src": "src/api.js", "use": "@vercel/node" },
+        { "src": "public/index.html", "use": "@vercel/static" }
+    ],
+    "env": {
+        "GOOGLE_API_KEY": "@google-api-key",
+        "SHEET_ID": "@sheet-id"
+    }
+}
