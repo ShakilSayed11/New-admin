@@ -1,1 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Sheets Data Downloader</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Google Sheets Data Downloader</h1>
+        <form id="downloadForm">
+            <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate" required>
 
+            <label for="endDate">End Date:</label>
+            <input type="date" id="endDate" required>
+
+            <label for="agentName">Agent Name:</label>
+            <input type="text" id="agentName">
+
+            <label for="workingDepartment">Working Department:</label>
+            <input type="text" id="workingDepartment">
+
+            <label for="workingRegion">Working Region:</label>
+            <input type="text" id="workingRegion">
+
+            <button type="submit">Download Data</button>
+        </form>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
