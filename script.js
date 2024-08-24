@@ -4,16 +4,8 @@ document.getElementById('downloadForm').addEventListener('submit', async (e) => 
     e.preventDefault();
     console.log('Form submitted');
 
-    const startDate = document.getElementById('startDate').value;
-    const endDate = document.getElementById('endDate').value;
-    const agentName = document.getElementById('agentName').value;
-    const workingDepartment = document.getElementById('workingDepartment').value;
-    const workingRegion = document.getElementById('workingRegion').value;
-
-    console.log('Form data:', { startDate, endDate, agentName, workingDepartment, workingRegion });
-
     try {
-        const response = await fetch(`/api/getData?startDate=${startDate}&endDate=${endDate}&agentName=${agentName}&workingDepartment=${workingDepartment}&workingRegion=${workingRegion}`);
+        const response = await fetch('/api/test');
         console.log('Response status:', response.status);
         
         const responseText = await response.text();
@@ -29,11 +21,7 @@ document.getElementById('downloadForm').addEventListener('submit', async (e) => 
                 return;
             }
 
-            const workbook = XLSX.utils.book_new();
-            const worksheet = XLSX.utils.json_to_sheet(data);
-            XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
-            XLSX.writeFile(workbook, 'google_sheets_data.xlsx');
-            console.log('File created successfully');
+            alert('API test successful: ' + data.message);
         } catch (jsonError) {
             console.error('Error parsing JSON:', jsonError);
             alert('The server returned an invalid response. Please check the console for details.');
