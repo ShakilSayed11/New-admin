@@ -1,1 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Excel from Google Sheets</title>
+</head>
+<body>
+    <h1>Download Data</h1>
+    <form id="download-form">
+        <label for="agent-name">Agent Name:</label>
+        <input type="text" id="agent-name" name="agentName"><br><br>
+        
+        <label for="department">Working Department:</label>
+        <input type="text" id="department" name="department"><br><br>
+
+        <label for="region">Working Region:</label>
+        <input type="text" id="region" name="region"><br><br>
+
+        <label for="date-from">From Date:</label>
+        <input type="date" id="date-from" name="dateFrom"><br><br>
+
+        <label for="date-to">To Date:</label>
+        <input type="date" id="date-to" name="dateTo"><br><br>
+
+        <button type="button" onclick="downloadData()">Download</button>
+    </form>
+
+    <script src="../src/app.js"></script>
+</body>
+</html>
 
