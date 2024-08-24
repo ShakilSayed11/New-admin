@@ -3,28 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Sheets to Excel</title>
+    <title>Download Data</title>
 </head>
 <body>
-    <h1>Download Data from Google Sheets</h1>
-    <form id="dataForm">
-        <label for="fromDate">From Date:</label>
-        <input type="date" id="fromDate" name="fromDate" required>
-        <br>
-        <label for="toDate">To Date:</label>
-        <input type="date" id="toDate" name="toDate" required>
-        <br>
-        <label for="agentName">Agent Name:</label>
-        <input type="text" id="agentName" name="agentName">
-        <br>
-        <label for="department">Working Department:</label>
-        <input type="text" id="department" name="department">
-        <br>
-        <label for="region">Working Region:</label>
-        <input type="text" id="region" name="region">
-        <br>
-        <button type="button" onclick="fetchData()">Download Data</button>
-    </form>
-    <script src="index.js"></script>
+    <h1>Download Data</h1>
+    <button onclick="fetchData()">Download Excel</button>
+
+    <script>
+        async function fetchData() {
+            const response = await fetch('/api/get-data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    fromDate: '2024-08-01',
+                    toDate: '2024-08-31',
+                    agentName: 'John Doe',
+                    department: 'Sales',
+                    region: 'North'
+                }),
+            });
+
+            if (response.ok) {
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'data.xlsx';
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+            } else {
+                console.error('Error fetching data:', response.statusText);
+            }
+        }
+    </script>
 </body>
 </html>
