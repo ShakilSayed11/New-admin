@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Sheets to Excel</title>
+</head>
+<body>
+    <h1>Download Data from Google Sheets</h1>
+    <form id="dataForm">
+        <label for="fromDate">From Date:</label>
+        <input type="date" id="fromDate" name="fromDate" required>
+        <br>
+        <label for="toDate">To Date:</label>
+        <input type="date" id="toDate" name="toDate" required>
+        <br>
+        <label for="agentName">Agent Name:</label>
+        <input type="text" id="agentName" name="agentName">
+        <br>
+        <label for="department">Working Department:</label>
+        <input type="text" id="department" name="department">
+        <br>
+        <label for="region">Working Region:</label>
+        <input type="text" id="region" name="region">
+        <br>
+        <button type="button" onclick="fetchData()">Download Data</button>
+    </form>
+    <script src="index.js"></script>
+</body>
+</html>
